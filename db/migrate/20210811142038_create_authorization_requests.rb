@@ -36,6 +36,9 @@ class CreateAuthorizationRequests < ActiveRecord::Migration[6.1]
         authorization_request_model_id: authorization_request.id,
       )
     end
+  rescue ActiveRecord::RecordInvalid => e
+    puts e.record.attributes, e.message, e.record.errors.to_h
+    raise e
   end
 
   def down
