@@ -17,11 +17,13 @@
           </a>
         </li>
 
+        <% if @can_download_attestations %>
         <li class="fr-sidemenu__item <%= current_page?(controller: 'users', action: 'download_attestations') ? 'fr-sidemenu__item--active' : '' %>">
           <a class="fr-sidemenu__link" href="<%= user_download_attestations_path %>" target="_self" <%= current_page?(controller: 'users', action: 'download_attestations') ? 'aria-current=page' : '' %>>
             <%= t('.download_attestations') %>
           </a>
         </li>
+        <% end %>
 
         <li class="fr-sidemenu__item">
           <a id="logout_button" class="fr-sidemenu__link" href="<%= logout_path %>" target="_self" data-method="delete">
