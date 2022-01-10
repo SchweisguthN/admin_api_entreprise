@@ -63,6 +63,7 @@ fr:
       toggle: "Menu"
       profil: "Compte utilisateur"
       tokens: "Jetons d'accès"
+      download_attestations: 'Télécharger attestations fiscale/sociale'
       sign_out: "Se déconnecter"
 
 

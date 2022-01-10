@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get '/auth/failure', to: 'sessions#failure'
 
   get '/profile', to: 'users#profile', as: :user_profile
+  get '/profile/download_attestations', to: 'users#download_attestations', as: :user_download_attestations
   get '/profile/tokens', to: 'jwt_api_entreprise#index', as: :user_tokens
   post 'tokens/:id/create_magic_link', to: 'restricted_token_magic_links#create', as: :token_create_magic_link
   get 'tokens/:id/stats', to: 'jwt_api_entreprise#stats', as: :token_stats
