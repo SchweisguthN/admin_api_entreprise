@@ -85,7 +85,7 @@ RSpec.shared_examples :it_displays_user_owned_token do
   end
 
   it 'does not display expired tokens' do
-    expired_jwt = create(:jwt_api_entreprise, :expired)
+    expired_jwt = create(:jwt_api_entreprise, :expired, user: user)
     subject
 
     expect(page).not_to have_css("input[value='#{expired_jwt.rehash}']")
