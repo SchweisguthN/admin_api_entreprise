@@ -15,13 +15,14 @@ class JwtAPIEntreprise < ApplicationRecord
   has_many :contacts, through: :authorization_request
   has_and_belongs_to_many :roles
 
-  scope :not_blacklisted, -> { where(blacklisted: false) }
-  scope :issued_in_last_seven_days, -> { where(created_at: 3.weeks.ago..1.week.ago) }
   scope :unexpired, -> { where('exp > ?', Time.zone.now.to_i) }
 
   scope :active, -> { where(blacklisted: false, archived: false) }
   scope :archived, -> { where(blacklisted: false, archived: true) }
   scope :blacklisted, -> { where(blacklisted: true) }
+  scope :not_blacklisted, -> { where(blacklisted: false) }
+
+  scope :relevant, -> { unexpired.active }
 
   def rehash
     AccessToken.create(token_payload)

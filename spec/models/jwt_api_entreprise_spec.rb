@@ -59,24 +59,6 @@ RSpec.describe JwtAPIEntreprise, type: :model do
     end
   end
 
-  describe '.issued_in_last_seven_days' do
-    subject { described_class }
-
-    let!(:token) { create(:jwt_api_entreprise, datetime_of_issue) }
-
-    context 'when the token was issued up to maximum 6 days ago' do
-      let(:datetime_of_issue) { :less_than_seven_days_ago }
-
-      its(:issued_in_last_seven_days) { is_expected.not_to be_exist token.id }
-    end
-
-    context 'when the token was issued since at least 7 days ago' do
-      let(:datetime_of_issue) { :seven_days_ago }
-
-      its(:issued_in_last_seven_days) { is_expected.to be_exist token.id }
-    end
-  end
-
   describe '.unexpired' do
     subject { described_class.unexpired }
 
