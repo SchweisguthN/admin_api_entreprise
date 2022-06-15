@@ -4,21 +4,31 @@ class DocumentationEntry
   include ActiveModel::Model
   include ActiveModelAlgoliaSearchable
 
-  attr_accessor :section, :title, :content
+  attr_accessor :title, :introduction, :sections
 
   def self.developers
-    I18n.t('documentation_entries.pages.developers').map { |entry| new(title: entry[:title], content: entry[:content]) }
+    build_documentation_entries('documentation_entries.pages.developers')
   end
 
   def self.guide_migration
-    I18n.t('documentation_entries.pages.guide_migration').map { |entry| new(title: entry[:title], content: entry[:content]) }
+    build_documentation_entries('documentation_entries.pages.guide_migration')
   end
 
   def anchor
     title.parameterize
   end
 
-  def content_markdownify
-    MarkdownInterpolator.new(content).perform
+  def introduction_markdownify
+    MarkdownInterpolator.new(introduction).perform unless introduction.nil?
+  end
+
+  def self.build_documentation_entries(i18n_key)
+    I18n.t(i18n_key).map do |entry|
+      new(
+        title: entry[:title],
+        introduction: entry[:introduction],
+        sections: entry[:sections]
+      )
+    end
   end
 end
