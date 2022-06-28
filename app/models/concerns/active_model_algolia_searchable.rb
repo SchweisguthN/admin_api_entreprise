@@ -4,7 +4,7 @@ module ActiveModelAlgoliaSearchable
 
   included do
     def self.algoliasearch_active_model(options = {}, &)
-      algoliasearch(options.merge(id: :dom_id), &)
+      algoliasearch(options.merge(id: :dom_id, check_reindex: true), &)
     end
 
     def self.all
